@@ -129,7 +129,7 @@ master:
               jenkinsUrl: "http://jenkins:8080"
               maxRequestsPerHostStr: "32"
               name: "kubernetes"
-              namespace: "ace"
+              namespace: "jenkins"
               serverUrl: "https://kubernetes.default"
               templates:
               - containers:
@@ -138,7 +138,7 @@ master:
                   envVars:
                   - envVar:
                       key: "JENKINS_URL"
-                      value: "http://jenkins.ace.svc.cluster.local:8080"
+                      value: "http://jenkins.jenkins.svc.cluster.local:8080"
                   image: "jenkinsci/jnlp-slave"
                   livenessProbe:
                     failureThreshold: 0
