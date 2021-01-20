@@ -24,6 +24,11 @@ home_folder=$1
 clone_folder=$2
 source_repo=$3
 
+echo "variables"
+echo $home_folder
+echo $clone_folder
+echo $source_repo
+
 echo "Installing packages"
 sudo snap install jq 
 sudo snap install docker
