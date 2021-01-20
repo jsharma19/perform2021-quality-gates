@@ -167,7 +167,7 @@ echo "Jenkins - Install"
 kubectl create ns jenkins
 kubectl create -f $home_folder/$clone_folder/box/helm/jenkins-pvc.yml
 sed \
-    -e "s|DOCKER_REGISTRY_URL_PLACEHOLDER|localhost:5000|" \
+    -e "s|DOCKER_REGISTRY_URL_PLACEHOLDER|localhost:32000|" \
     -e "s|GITHUB_USER_EMAIL_PLACEHOLDER|$git_email|" \
     -e "s|GITHUB_USER_NAME_PLACEHOLDER|$git_user|" \
     -e "s|GITHUB_PERSONAL_ACCESS_TOKEN_PLACEHOLDER|$gitea_pat|" \
