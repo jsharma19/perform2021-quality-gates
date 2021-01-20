@@ -2,8 +2,6 @@
 #  VARIABLES                             #
 ##########################################
 monaco_version="v1.1.0" 
-source_repo="https://github.com/diegorqc/perform2021-vhot-monaco" 
-clone_folder="bootstrap"
 domain="nip.io"
 jenkins_chart_version="1.27.0"
 git_org="perform"
@@ -22,7 +20,9 @@ shell_user="dtu.training"
 #  DO NOT MODIFY ANYTHING IN THIS SCRIPT #
 ##########################################
 
-home_folder="/home/$shell_user"
+home_folder=$1
+clone_folder=$2
+source_repo=$3
 
 echo "Installing packages"
 sudo snap install jq 
@@ -53,14 +53,7 @@ wget https://github.com/dynatrace-oss/dynatrace-monitoring-as-code/releases/down
 chmod +x $home_folder/monaco
 cp $home_folder/monaco /usr/local/bin
 
-##############################
-# Clone repo                 #
-##############################
-cd $home_folder
-mkdir "$clone_folder"
-cd "$home_folder/$clone_folder"
-git clone "$source_repo" .
-chown -R $shell_user $home_folder/$clone_folder
+
 
 ##############################
 # Install k3s and Helm       #
@@ -157,20 +150,6 @@ cd $home_folder/$git_repo && git push http://$git_user:$gitea_pat@gitea.$ingress
 
 
 ##############################
-# Install ActiveGate         #
-##############################
-
-# echo "Dynatrace ActiveGate - Download"
-# activegate_download_location=$home_folder/Dynatrace-ActiveGate-Linux-x86-latest.sh
-# if [ ! -f "$activegate_download_location" ]; then
-#     echo "$activegate_download_location does not exist. Downloading now..."
-#     wget "$DT_TENANT/api/v1/deployment/installer/gateway/unix/latest?arch=x86&flavor=default" --header="Authorization: Api-Token $DYNATRACE_TOKEN" -O $activegate_download_location 
-# fi
-# echo "Dynatrace ActiveGate - Install Private Synthetic"
-# DYNATRACE_SYNTHETIC_AUTO_INSTALL=true /bin/sh "$activegate_download_location" --enable-synthetic
-
-
-##############################
 # Deploy Registry            #
 ##############################
 kubectl create ns registry
@@ -183,6 +162,7 @@ echo "Jenkins - Install"
 kubectl create ns jenkins
 kubectl create -f $home_folder/$clone_folder/box/helm/jenkins-pvc.yml
 sed \
+    -e "s|DOCKER_REGISTRY_URL_PLACEHOLDER|localhost:5000|" \
     -e "s|GITHUB_USER_EMAIL_PLACEHOLDER|$git_email|" \
     -e "s|GITHUB_USER_NAME_PLACEHOLDER|$git_user|" \
     -e "s|GITHUB_PERSONAL_ACCESS_TOKEN_PLACEHOLDER|$gitea_pat|" \
