@@ -9,7 +9,7 @@ The OneAgent Operator has already been deployed in earlier stages of the lab. Ho
 
     ```bash
     (bastion)$ cd
-    (bastion)$ ./installDynatraceServiceForKeptn.sh
+    (bastion)$ ./bootstrap/box/scripts/installDynatraceServiceForKeptn.sh
     ```
 
 1. This script will perform the following steps:

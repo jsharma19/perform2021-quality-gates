@@ -222,3 +222,12 @@ sed -e "s|INGRESS_PLACEHOLDER|$ingress_domain|" $home_folder/$clone_folder/box/h
 docker build -t localhost:32000/dashboard $home_folder/$clone_folder/box/dashboard && docker push localhost:32000/dashboard
 
 helm upgrade -i ace-dashboard $home_folder/$clone_folder/box/helm/dashboard -f $home_folder/$clone_folder/box/helm/dashboard/values-gen.yaml --namespace dashboard --create-namespace
+
+##############################
+# Credentials file #
+##############################
+sed \
+    -e "s|DYNATRACE_ENVIRONMENT_ID|$DYNATRACE_ENVIRONMENT_ID|g" \
+    -e "s|DYNATRACE_TOKEN|$DYNATRACE_TOKEN|g" \
+    -e "s|DYNATRACE_PAAS_TOKEN|$DYNATRACE_PAAS_TOKEN|g" \
+$home_folder/$clone_folder/box/scripts/creds-template.json > $home_folder/$clone_folder/box/scripts/creds.json
