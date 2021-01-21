@@ -104,6 +104,13 @@ kubectl -n app-two create rolebinding default-view --clusterrole=view --servicea
 kubectl -n app-three create rolebinding default-view --clusterrole=view --serviceaccount=app-three:default
 
 ##############################
+# Install keptn cli      #
+##############################
+cd $home_folder
+curl -sL https://get.keptn.sh | bash
+
+
+##############################
 # Install ingress-nginx      #
 ##############################
 
