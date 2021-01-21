@@ -37,7 +37,7 @@ We will install [Keptn](https://keptn.sh/) on your AWS instance and use the qual
 
     ```bash
     (bastion)$ cd
-    (bastion)$ ./exposeKeptn.sh
+    (bastion)$ ./bootstrap/box/scripts/exposeKeptn.sh
     ```
 
 ## Step 4: Authenticate keptn CLI

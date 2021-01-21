@@ -4,11 +4,11 @@ set -e
 echo "Configure nginx-ingress and Keptn"
 
 # Get Ingress gateway IP-Address
-export INGRESS_IP=$(kubectl -n ingress-nginx get svc ingress-nginx-controller  -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+export VM_IP=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)
 
 # Check if IP-Address is not empty or pending
-if [ -z "$INGRESS_IP" ] || [ "$INGRESS_IP" = "Pending" ] ; then
- 	echo "INGRESS_IP is empty. Make sure that the Ingress gateway is ready"
+if [ -z "$VM_IP" ] || [ "$VM_IP" = "Pending" ] ; then
+ 	echo "VM_IP is empty. Make sure that the Ingress gateway is ready"
 	exit 1
 fi
 
@@ -23,7 +23,7 @@ metadata:
   namespace: keptn
 spec:
   rules:
-  - host: keptn.$INGRESS_IP.nip.io
+  - host: keptn.$VM_IP.nip.io
     http:
       paths:
       - backend:
