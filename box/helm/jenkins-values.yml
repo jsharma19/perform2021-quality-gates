@@ -460,6 +460,46 @@ master:
                     description: "Github Credentials for ACE"
                     id: "git-creds-ace"
                     scope: GLOBAL
+        unclassified:
+          defaultFolderConfiguration:
+            healthMetrics:
+            - worstChildHealthMetric:
+                recursive: true
+          gitHubPluginConfig:
+            hookUrl: "http://jenkins/github-webhook/"
+          gitSCM:
+            createAccountBasedOnEmail: false
+            showEntireCommitSummaryInChanges: false
+            useExistingAccountWithSameEmail: false
+          globalLibraries:
+            libraries:
+            - name: "dynatrace"
+              retriever:
+                modernSCM:
+                  scm:
+                    git:
+                      id: "6813bac3-894e-434d-9abb-bd41eeb72f88"
+                      remote: "https://github.com/dynatrace-ace/dynatrace-jenkins-library.git"
+                      traits:
+                      - "gitBranchDiscovery"
+            ### add keptn library under this line
+            - defaultVersion: "master"
+              name: "keptn-library"
+              retriever:
+                modernSCM:
+                  scm:
+                    git:
+                      remote: "https://github.com/keptn-sandbox/keptn-jenkins-library.git"
+                      traits:
+                      - "gitBranchDiscovery"
+          location:
+            adminAddress: "address not configured yet <nobody@nowhere>"
+            url: "https://jenkins.JENKINS_INGRESS_PLACEHOLDER/"
+          mailer:
+            charset: "UTF-8"
+            useSsl: false
+          pollSCM:
+            pollingThreadCount: 10                    
         jobs:
           - script: >
               pipelineJob('1. Build') {

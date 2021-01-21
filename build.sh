@@ -230,4 +230,4 @@ sed \
     -e "s|DYNATRACE_ENVIRONMENT_ID|$DYNATRACE_ENVIRONMENT_ID|g" \
     -e "s|DYNATRACE_TOKEN|$DYNATRACE_TOKEN|g" \
     -e "s|DYNATRACE_PAAS_TOKEN|$DYNATRACE_PAAS_TOKEN|g" \
-$home_folder/$clone_folder/box/scripts/creds-template.json > $home_folder/$clone_folder/box/scripts/creds.json
+$home_folder/$clone_folder/box/scripts/creds-template.json > $home_folder/creds.json
