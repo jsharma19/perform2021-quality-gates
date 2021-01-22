@@ -4,18 +4,14 @@ In this lab you'll learn how to configure the Keptn library for Jenkins.
 
 ## Step 1: Review Keptn library installation
 
-Following the `everything as code` best practice, we will update the Jenkins deployment using Helm.
+Following the `everything as code` best practice, we have configure Jenkins to consume a Yaml file to grab all the configurations for our environment. One of those configurations is the keptn library for Jenkins. 
 
-1. On the bastion find the `jenkins-values.yml` file using the following
+1. In order to check the library configuration in the yaml file use the following command and search for `globalLibraries` 
 
-    ```bash
-    (bastion)$ cd
-    (bastion)$ vi ~/jenkins/helm/jenkins-values.yml
-    ```
-
-    **Note:** To activate the line numbering on vim, set the number flag, :one: Press the `Esc` key to switch to command mode. :two: Press `:` (colon) and the cursor will move at the bottom left corner of the screen. Type `set number` or `set nu` and hit Enter.
-
-1. Find the code block that defines the dynatrace libs (near or at line 483):
+```(bash)
+(bastion) $ vi ./bootstrap/box/helm/jenkins-values-gen.yml 
+```
+You should see something like this 
 
     ```yaml
           globalLibraries:
@@ -29,12 +25,6 @@ Following the `everything as code` best practice, we will update the Jenkins dep
                       remote: "https://github.com/dynatrace-ace/dynatrace-jenkins-library.git"
                       traits:
                       - "gitBranchDiscovery"
-            ### add keptn library under this line
-    ```
-
-1. Add the following code block under the line commented out and save the file **(make sure indentation is correct)**:
-
-    ```yaml
             - defaultVersion: "master"
               name: "keptn-library"
               retriever:
@@ -46,41 +36,8 @@ Following the `everything as code` best practice, we will update the Jenkins dep
                       - "gitBranchDiscovery"
     ```
 
-1. After adding the keptn libs, the Jenkins global libraries code block should look similar to this:
 
-    ```yaml
-          globalLibraries:
-            libraries:
-            - name: "dynatrace"
-              retriever:
-                modernSCM:
-                  scm:
-                    git:
-                      id: "6813bac3-894e-434d-9abb-bd41eeb72f88"
-                      remote: "https://github.com/dynatrace-ace/dynatrace-jenkins-library.git"
-                      traits:
-                      - "gitBranchDiscovery"
-            ### add keptn library under this line
-            - defaultVersion: "master"
-              name: "keptn-library"
-              retriever:
-                modernSCM:
-                  scm:
-                    git:
-                      remote: "https://github.com/keptn-sandbox/keptn-jenkins-library.git"
-                      traits:
-                      - "gitBranchDiscovery"
-    ```
-
-1. Apply the configurations to Jenkins using helm:
-
-    ```bash
-    (bastion)$ cd
-    (bastion)$ ./deployJenkins.sh
-    ```
-
-
-1. Go into Jenkins and review the [keptn library](https://github.com/keptn-sandbox/keptn-jenkins-library.git) installation `Jenkins > Manage Jenkins > Configure System > Global Pipeline Libraries`.
+2. You can also visualize the library in the Jenkins  UI by navigating to `Jenkins > Manage Jenkins > Configure System > Global Pipeline Libraries`.
 ![keptn](./assets/keptn-jenkins-library1.png)
 
 ## Step 2: Get Keptn credentials
@@ -98,10 +55,11 @@ Retrieve the Keptn credentials using the following
 
 ## Step 3: Store Keptn credentials in Jenkins
 
- Inside Jenkins go into `Manage Jenkins > Manage credentials ` and select the first element with the house icon.
+ In this step we will add the Keptn credentials into Jenkins. 
+ 1. Inside Jenkins go into `Manage Jenkins > Manage credentials ` and select the first element with the house icon.
 ![keptn](./assets/jenkins-store.png)
 
-Then click `Global credentials > Add credentials`, use the dropdown Kind and select `secret text` and input the values from step 2. Repeat the process for each variable. For the ID field use the name from the images.
+2. Then click `Global credentials > Add credentials`, use the dropdown Kind and select `secret text` and input the values from step 2. Repeat the process for each variable. For the ID field use the name from the images.
 
 ![keptn](./assets/keptn-api1.png)
 ![keptn](./assets/keptn-bridge1.png)
