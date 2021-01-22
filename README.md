@@ -6,6 +6,7 @@
 ```bash
 export DYNATRACE_ENVIRONMENT_ID="https://test.live.dynatrace.com/"
 export DYNATRACE_TOKEN="tokenid"
+export DYNATRACE_PAAS_TOKEN="paas token"
 chmod +rx build.sh
 ./build.sh
 ```
