@@ -11,8 +11,4 @@ chmod +rx pre-build.sh
 ./pre-build.sh
 ```
 
-2. To start over
-```bash
-rm -rf bootstrap
-/usr/local/bin/k3s-uninstall.sh
-```
+2. To start over copy and run the script restart.sh
