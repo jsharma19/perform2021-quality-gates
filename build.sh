@@ -194,6 +194,17 @@ cd $home_folder/$releaseBranchPipeline && git add . && git commit -m "Initial co
 cd $home_folder/$releaseBranchPipeline && git push http://$git_user:$gitea_pat@gitea.$ingress_domain/$git_org/$releaseBranchPipeline
 
 ##############################
+# Create app and base settings   #
+##############################
+
+kubectl create ns dev
+kubectl create ns staging
+kubectl create ns production
+
+## Deploy base files 
+kubectl apply -f $home_folder/$clone_folder/box/$app1Repo/manifest/carts-db.yml
+
+##############################
 # Deploy Registry            #
 ##############################
 kubectl create ns registry
@@ -225,6 +236,7 @@ sed \
     $home_folder/$clone_folder/box/helm/jenkins-values.yml > $home_folder/$clone_folder/box/helm/jenkins-values-gen.yml
 
 kubectl create clusterrolebinding jenkins --clusterrole cluster-admin --serviceaccount=jenkins:jenkins
+kubectl create clusterrolebinding jenkinsd --clusterrole cluster-admin --serviceaccount=jenkins:default
 
 helm install jenkins stable/jenkins --values $home_folder/$clone_folder/box/helm/jenkins-values-gen.yml --version $jenkins_chart_version --namespace jenkins --wait 
 
@@ -272,3 +284,5 @@ sed \
     -e "s|DYNATRACE_TOKEN|$DYNATRACE_TOKEN|g" \
     -e "s|DYNATRACE_PAAS_TOKEN|$DYNATRACE_PAAS_TOKEN|g" \
 $home_folder/$clone_folder/box/scripts/creds-template.json > $home_folder/creds.json
+
+
