@@ -202,6 +202,9 @@ kubectl create -f $home_folder/$clone_folder/box/helm/registry.yml
 ##############################
 # Install Jenkins            #
 ##############################
+# Configure persistent volume claim for jenkins jobs
+kubectl apply -f ~/jenkins/k8s-maven-pvc.yml
+
 echo "Jenkins - Install"
 kubectl create ns jenkins
 kubectl create -f $home_folder/$clone_folder/box/helm/jenkins-pvc.yml
