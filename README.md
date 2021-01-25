@@ -7,8 +7,8 @@
 export DYNATRACE_ENVIRONMENT_ID="https://test.live.dynatrace.com/"
 export DYNATRACE_TOKEN="tokenid"
 export DYNATRACE_PAAS_TOKEN="paas token"
-chmod +rx build.sh
-./build.sh
+chmod +rx pre-build.sh
+./pre-build.sh
 ```
 
 2. To start over
