@@ -204,11 +204,12 @@ kubectl create -f $home_folder/$clone_folder/box/helm/registry.yml
 ##############################
 # Configure persistent volume claim for jenkins jobs
 echo "configure maven pvc"
+kubectl create ns jenkins
 kubectl apply -f $home_folder/$clone_folder/box/helm/k8s-maven-pvc.yml
 #kubectl apply -f /home/dtu.training/bootstrap/box/helm/k8s-maven-pvc.yml
 
 echo "Jenkins - Install"
-kubectl create ns jenkins
+
 kubectl create -f $home_folder/$clone_folder/box/helm/jenkins-pvc.yml
 sed \
     -e "s|DOCKER_REGISTRY_URL_PLACEHOLDER|localhost:32000|" \
