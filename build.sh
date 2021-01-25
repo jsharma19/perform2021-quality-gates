@@ -11,6 +11,10 @@ git_pwd="dynatrace"
 git_email="perform2021@dt-perform.com"
 shell_user="dtu.training"
 
+app1Repo="carts"
+releaseBranchPipeline="jenkins-release-branch"
+stagingPipelineRepo="k8s-deploy-staging"
+
 # These need to be set as environment variables prior to launching the script
 #export DYNATRACE_ENVIRONMENT_ID=     # only the environmentid (abc12345) is needed. script assumes a sprint tenant 
 ##for testing purposes using a full tenant url
@@ -160,6 +164,31 @@ cp -r $home_folder/$clone_folder/box/repo/. $home_folder/$git_repo
 cd $home_folder/$git_repo && git add . && git commit -m "Initial commit, enjoy"
 cd $home_folder/$git_repo && git push http://$git_user:$gitea_pat@gitea.$ingress_domain/$git_org/$git_repo
 
+## Adding pipeline resources
+
+echo "Gitea - Create repo $app1Repo..."
+curl -k -d '{"name":"'$app1Repo'", "private":false, "auto-init":true}' -H "Content-Type: application/json" -X POST "http://gitea.$ingress_domain/api/v1/org/$git_org/repos?access_token=$gitea_pat"
+
+git clone http://$git_user:$gitea_pat@gitea.$ingress_domain/$git_org/$app1Repo
+cp -r $home_folder/$clone_folder/box/$app1Repo/. $home_folder/$app1Repo
+cd $home_folder/$app1Repo && git add . && git commit -m "Initial commit, enjoy"
+cd $home_folder/$app1Repo && git push http://$git_user:$gitea_pat@gitea.$ingress_domain/$git_org/$app1Repo
+
+echo "Gitea - Create repo $stagingPipelineRepo..."
+curl -k -d '{"name":"'$stagingPipelineRepo'", "private":false, "auto-init":true}' -H "Content-Type: application/json" -X POST "http://gitea.$ingress_domain/api/v1/org/$git_org/repos?access_token=$gitea_pat"
+
+git clone http://$git_user:$gitea_pat@gitea.$ingress_domain/$git_org/$stagingPipelineRepo
+cp -r $home_folder/$clone_folder/box/$stagingPipelineRepo/. $home_folder/$stagingPipelineRepo
+cd $home_folder/$stagingPipelineRepo && git add . && git commit -m "Initial commit, enjoy"
+cd $home_folder/$stagingPipelineRepo && git push http://$git_user:$gitea_pat@gitea.$ingress_domain/$git_org/$stagingPipelineRepo
+
+echo "Gitea - Create repo $releaseBranchPipeline..."
+curl -k -d '{"name":"'$releaseBranchPipeline'", "private":false, "auto-init":true}' -H "Content-Type: application/json" -X POST "http://gitea.$ingress_domain/api/v1/org/$git_org/repos?access_token=$gitea_pat"
+
+git clone http://$git_user:$gitea_pat@gitea.$ingress_domain/$git_org/$releaseBranchPipeline
+cp -r $home_folder/$clone_folder/box/$releaseBranchPipeline/. $home_folder/$releaseBranchPipeline
+cd $home_folder/$releaseBranchPipeline && git add . && git commit -m "Initial commit, enjoy"
+cd $home_folder/$releaseBranchPipeline && git push http://$git_user:$gitea_pat@gitea.$ingress_domain/$git_org/$releaseBranchPipeline
 
 ##############################
 # Deploy Registry            #

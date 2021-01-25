@@ -512,11 +512,11 @@ master:
                   }
                   definition {
                     cpsScm {
-                      scriptPath('k8s-deploy-staging/Jenkinsfile')
+                      scriptPath('Jenkinsfile')
                       scm {
                         git {
                             remote { 
-                              url('${GIT_PROTOCOL}://${GIT_ENDPOINT}/${GITHUB_ORGANIZATION}/${GIT_REPO}') 
+                              url('${GIT_PROTOCOL}://${GIT_ENDPOINT}/${GITHUB_ORGANIZATION}/k8s-deploy-staging.git') 
                             }
                             branch('*/master')
                         }
@@ -524,30 +524,30 @@ master:
                       lightweight()
                     }
                   }
-                }     
+                }
           - script: >
               folder('sockshop')
           - script: >
-              multibranchPipelineJob('carts') {
+              multibranchPipelineJob('sockshop/carts') {
                 branchSources {
                   git {
                     id('carts')
-                    remote('${GIT_PROTOCOL}://${GIT_ENDPOINT}/${GITHUB_ORGANIZATION}/${GIT_REPO}')
+                    remote('${GIT_PROTOCOL}://${GIT_ENDPOINT}/${GITHUB_ORGANIZATION}/carts.git')
                   }
                 }
               }
           - script: >
-              pipelineJob('create-release-branch') {
+              pipelineJob('sockshop/create-release-branch') {
                   parameters {
                     stringParam('SERVICE', 'carts', 'Name of the service')
                   }
                   definition {
                     cpsScm {
-                      scriptPath('jenkins-release-branch/Jenkinsfile')
+                      scriptPath('Jenkinsfile')
                       scm {
                         git {
                             remote { 
-                              url('${GIT_PROTOCOL}://${GIT_ENDPOINT}/${GITHUB_ORGANIZATION}/${GIT_REPO}') 
+                              url('${GIT_PROTOCOL}://${GIT_ENDPOINT}/${GITHUB_ORGANIZATION}/jenkins-release-branch.git') 
                             }
                             branch('*/master')
                         }
