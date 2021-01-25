@@ -15,7 +15,7 @@ pipeline {
     stage('Increase version number') {
       steps {
         container('git') {
-          withCredentials([usernamePassword(credentialsId: 'git-credentials-acm', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+          withCredentials([usernamePassword(credentialsId: 'git-creds-ace', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
             sh "git config --global user.email ${env.GITHUB_USER_EMAIL}"
             sh "git clone ${env.GIT_PROTOCOL}://${GIT_USERNAME}:${GIT_PASSWORD}@${env.GIT_ENDPOINT}/${env.GITHUB_ORGANIZATION}/${env.SERVICE}"
             sh "version=`cat ${env.SERVICE}/version`"
