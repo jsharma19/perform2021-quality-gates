@@ -516,7 +516,7 @@ master:
                       scm {
                         git {
                             remote { 
-                              url('${GIT_PROTOCOL}://${GIT_ENDPOINT}/${GITHUB_ORGANIZATION}/k8s-deploy-staging.git') 
+                              url('${GIT_PROTOCOL}://${GIT_DOMAIN}/${GITHUB_ORGANIZATION}/k8s-deploy-staging.git') 
                             }
                             branch('*/master')
                         }
@@ -532,7 +532,7 @@ master:
                 branchSources {
                   git {
                     id('carts')
-                    remote('${GIT_PROTOCOL}://${GIT_ENDPOINT}/${GITHUB_ORGANIZATION}/carts.git')
+                    remote('${GIT_PROTOCOL}://${GIT_DOMAIN}/${GITHUB_ORGANIZATION}/carts.git')
                   }
                 }
               }
@@ -547,7 +547,7 @@ master:
                       scm {
                         git {
                             remote { 
-                              url('${GIT_PROTOCOL}://${GIT_ENDPOINT}/${GITHUB_ORGANIZATION}/jenkins-release-branch.git') 
+                              url('${GIT_PROTOCOL}://${GIT_DOMAIN}/${GITHUB_ORGANIZATION}/jenkins-release-branch.git') 
                             }
                             branch('*/master')
                         }
