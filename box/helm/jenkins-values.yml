@@ -512,7 +512,7 @@ master:
                   }
                   definition {
                     cpsScm {
-                      scriptPath('jenkins/k8s-deploy-staging.Jenkinsfile')
+                      scriptPath('k8s-deploy-staging/Jenkinsfile')
                       scm {
                         git {
                             remote { 
@@ -528,7 +528,7 @@ master:
           - script: >
               folder('sockshop')
           - script: >
-              multibranchPipelineJob('jenkins/carts') {
+              multibranchPipelineJob('carts') {
                 branchSources {
                   git {
                     id('carts')
@@ -543,7 +543,7 @@ master:
                   }
                   definition {
                     cpsScm {
-                      scriptPath('jenkins/create-release-branch.Jenkinsfile')
+                      scriptPath('jenkins-release-branch/Jenkinsfile')
                       scm {
                         git {
                             remote { 

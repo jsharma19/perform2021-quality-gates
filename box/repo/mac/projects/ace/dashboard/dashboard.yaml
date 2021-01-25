@@ -1,7 +1,0 @@
-config:
-    - dashboard-staging: "dashboard.json"
-  
-dashboard-staging:
-    - name: "MAC Dashboard Staging"
-    - managementZoneId: "/ace/management-zone/management-zone-staging.id"
-    - managementZoneName: "/ace/management-zone/management-zone-staging.name"
