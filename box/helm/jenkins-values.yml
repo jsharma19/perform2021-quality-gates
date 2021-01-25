@@ -482,7 +482,6 @@ master:
                       remote: "https://github.com/dynatrace-ace/dynatrace-jenkins-library.git"
                       traits:
                       - "gitBranchDiscovery"
-            ### add keptn library under this line
             - defaultVersion: "master"
               name: "keptn-library"
               retriever:
@@ -502,68 +501,62 @@ master:
             pollingThreadCount: 10                    
         jobs:
           - script: >
-              pipelineJob('1. Build') {
-                parameters {
-                  choiceParam('BUILD', ['1','2','3','4'], 'Select the build you want to deploy (affects application behavior, github.com/grabnerandi/simplenodeservice for more details)')
-                }
-                definition {
-                  cpsScm {
-                    scriptPath('jenkins/build.Jenkinsfile')
-                    scm {
-                      git {
-                          remote { 
-                            url('${GIT_PROTOCOL}://${GIT_DOMAIN}/${GITHUB_ORGANIZATION}/${GIT_REPO}')
-                          }
-                          branch('*/master')
+              pipelineJob('k8s-deploy-staging') {
+                  properties {
+                    disableConcurrentBuilds()  
+                  }
+                  parameters {
+                    stringParam('APP_NAME', '', 'The name of the service to deploy.')
+                    stringParam('TAG_STAGING', '', 'The image of the service to deploy.')
+                    stringParam('VERSION', '', 'The version of the service to deploy.')
+                  }
+                  definition {
+                    cpsScm {
+                      scriptPath('jenkins/k8s-deploy-staging.Jenkinsfile')
+                      scm {
+                        git {
+                            remote { 
+                              url('${GIT_PROTOCOL}://${GIT_ENDPOINT}/${GITHUB_ORGANIZATION}/${GIT_REPO}') 
+                            }
+                            branch('*/master')
+                        }
                       }
+                      lightweight()
                     }
-                    lightweight()
+                  }
+                }     
+          - script: >
+              folder('sockshop')
+          - script: >
+              multibranchPipelineJob('jenkins/carts') {
+                branchSources {
+                  git {
+                    id('carts')
+                    remote('${GIT_PROTOCOL}://${GIT_ENDPOINT}/${GITHUB_ORGANIZATION}/${GIT_REPO}')
                   }
                 }
               }
           - script: >
-              pipelineJob('2. Deploy') {
-                parameters {
-                  stringParam('APP_NAME', 'simplenodeservice', 'The name of the service to deploy.')
-                  stringParam('TAG_STAGING', '', 'The image of the service to deploy.')
-                  stringParam('BUILD', '', 'The version of the service to deploy.')
-                }
-                definition {
-                  cpsScm {
-                    scriptPath('jenkins/deployStaging.Jenkinsfile')
-                    scm {
-                      git {
-                          remote { 
-                            url('${GIT_PROTOCOL}://${GIT_DOMAIN}/${GITHUB_ORGANIZATION}/${GIT_REPO}')
-                          }
-                          branch('*/master')
+              pipelineJob('jenkins/create-release-branch') {
+                  parameters {
+                    stringParam('SERVICE', 'carts', 'Name of the service')
+                  }
+                  definition {
+                    cpsScm {
+                      scriptPath('jenkins/create-release-branch.Jenkinsfile')
+                      scm {
+                        git {
+                            remote { 
+                              url('${GIT_PROTOCOL}://${GIT_ENDPOINT}/${GITHUB_ORGANIZATION}/${GIT_REPO}') 
+                            }
+                            branch('*/master')
+                        }
                       }
+                      lightweight()
                     }
-                    lightweight()
                   }
                 }
-              }
-          - script: >
-              pipelineJob('3. Test') {
-                parameters {
-                  stringParam('APP_NAME', 'simplenodeservice', 'The name of the service to deploy.')
-                }
-                definition {
-                  cpsScm {
-                    scriptPath('jenkins/test.Jenkinsfile')
-                    scm {
-                      git {
-                          remote { 
-                            url('${GIT_PROTOCOL}://${GIT_DOMAIN}/${GITHUB_ORGANIZATION}/${GIT_REPO}')
-                          }
-                          branch('*/master')
-                      }
-                    }
-                    lightweight()
-                  }
-                }
-              }
-              
+
 persistence:
   enabled: true
   existingClaim: "jenkins-pvc"

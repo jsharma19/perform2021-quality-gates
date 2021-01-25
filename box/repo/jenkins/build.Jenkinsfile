@@ -36,7 +36,7 @@ pipeline {
         }
     
         stage('Deploy and observe') {
-                stage('Deploy to staging'){
+                stage('Deploy to Dev'){
                     steps {
                         build job: "2. Deploy",
                         wait: false,

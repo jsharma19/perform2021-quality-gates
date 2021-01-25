@@ -118,72 +118,7 @@ pipeline {
                 }
             }
         }
-        /*stage('DT create synthetic monitor') {
-            steps {
-                container("kubectl") {
-                    script {
-                        // Get IP of service
-                        env.SERVICE_IP = sh(script: 'kubectl get Ingress simplenodeservice -n staging -o jsonpath=\'{.spec.rules[0].host}\'', , returnStdout: true).trim()
-                    }
-                }
-                container("curl") {
-                    script {
-                        def status = dt_createUpdateSyntheticTest (
-                            testName : "simpleproject.staging.${env.APP_NAME}",
-                            url : "http://${SERVICE_IP}/api/invoke?url=https://www.dynatrace.com",
-                            method : "GET",
-                            location : "${env.DT_SYNTHETIC_LOCATION}"
-                        )
-                    }
-                }
-            }
-        }
-        stage('DT create application detection rule') {
-            steps {
-                container("curl") {
-                    script {
-                        def status = dt_createUpdateAppDetectionRule (
-                            dtAppName : "simpleproject.staging.${env.APP_NAME}",
-                            pattern : "http://${SERVICE_IP}",
-                            applicationMatchType: "CONTAINS",
-                            applicationMatchTarget: "URL"
-                        )
-                    }
-                }
-            }
-        }
-		stage('DT create management zone') {
-          steps {
-            container("curl") {
-              script {
-                def (int status, String dt_mngtZoneId) = dt_createUpdateManagementZone (
-                    managementZoneName : 'SimpleProject Staging',
-                    ruleType : 'SERVICE',
-                    managementZoneConditions : mzContitions,
-                )
-                DT_MGMTZONEID = dt_mngtZoneId
-              }
-            }
-          }
-        }
-		stage('DT create dashboard') {
-          steps {
-            container("curl") {
-              script {
-                def status = dt_createUpdateDashboard (
-                  dashboardName : 'simpleproject-staging',
-                  dashboardManagementZoneName : 'SimpleProject Staging',
-                  dashboardManagementZoneId : "${DT_MGMTZONEID}",
-                  dashboardShared : true,
-                  dashboardLinkShared : true,
-                  dashboardPublished : true,
-                  dashboardTimeframe : '-30m',
-                  dtDashboardTiles : dashboardTileRules
-                )
-              }
-            }
-         }
-       }*/
+
         stage('Run tests') {
             steps {
                 build job: "3. Test",
@@ -194,55 +129,4 @@ pipeline {
             }
         }  
     }
-}
-
-def generateDynamicMetaData(){
-    String returnValue = "";
-    returnValue += "SCM=${env.GIT_URL} "
-    returnValue += "Branch=${env.GIT_BRANCH} "
-    returnValue += "Build=${env.BUILD} "
-    returnValue += "Image=${env.TAG_STAGING} "
-    returnValue += "keptn_project=simplenodeproject "
-    returnValue += "keptn_service=${env.APP_NAME} "
-    returnValue += "keptn_stage=staging "
-    return returnValue;
-}
-
-def readMetaData() {
-    def conf = readYaml file: "manifests/staging/dt_meta.yaml"
-
-    def return_meta = ""
-    for (meta_entry in conf.metadata) {
-        if (meta_entry.key != null &&  meta_entry.key != "") {
-            def curr_meta = ""
-            curr_meta = meta_entry.key.replace(" ", "_")
-            if (meta_entry.value != null &&  meta_entry.value != "") {
-                curr_meta += "="
-                curr_meta += meta_entry.value.replace(" ", "_")
-            }
-            echo curr_meta
-            return_meta += curr_meta + " "
-        }
-    }
-    return return_meta
-}
-
-def readTags() {
-    def conf = readYaml file: "manifests/staging/dt_meta.yaml"
-
-    def return_tag = ""
-    for (tag_entry in conf.tags) {
-        if (tag_entry.key != null &&  tag_entry.key != "") {
-            def curr_tag = ""
-            curr_tag = tag_entry.key.replace(" ", "_")
-            if (tag_entry.value != null &&  tag_entry.value != "") {
-                curr_tag += "="
-                curr_tag += tag_entry.value.replace(" ", "_")
-            }
-            echo curr_tag
-            return_tag += curr_tag + " "
-        }
-    }
-    echo return_tag
-    return return_tag
 }
