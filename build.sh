@@ -203,7 +203,7 @@ kubectl create -f $home_folder/$clone_folder/box/helm/registry.yml
 # Install Jenkins            #
 ##############################
 # Configure persistent volume claim for jenkins jobs
-kubectl apply -f ~/jenkins/k8s-maven-pvc.yml
+kubectl apply -f $home_folder/$clone_folder/box/helm/k8s-maven-pvc.yml
 
 echo "Jenkins - Install"
 kubectl create ns jenkins
@@ -225,6 +225,7 @@ kubectl create clusterrolebinding jenkins --clusterrole cluster-admin --servicea
 
 helm install jenkins stable/jenkins --values $home_folder/$clone_folder/box/helm/jenkins-values-gen.yml --version $jenkins_chart_version --namespace jenkins --wait 
 
+
 ##############################
 # Deploy App                 #
 ##############################
@@ -240,6 +241,8 @@ sed -e "s|INGRESS_PLACEHOLDER|$ingress_domain|g"  \
 kubectl apply -f $home_folder/$clone_folder/box/app-manifests/application-1-gen.yml
 kubectl apply -f $home_folder/$clone_folder/box/app-manifests/application-2-gen.yml
 kubectl apply -f $home_folder/$clone_folder/box/app-manifests/application-3-gen.yml
+
+
 
 ##############################
 # Deploy Dashboard           #
