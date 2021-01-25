@@ -537,7 +537,7 @@ master:
                 }
               }
           - script: >
-              pipelineJob('jenkins/create-release-branch') {
+              pipelineJob('create-release-branch') {
                   parameters {
                     stringParam('SERVICE', 'carts', 'Name of the service')
                   }
