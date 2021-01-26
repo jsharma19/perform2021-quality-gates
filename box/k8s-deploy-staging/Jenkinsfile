@@ -140,7 +140,7 @@ pipeline {
       }
     } // end stage
 
-    stage('Run production ready e2e check in staging') {
+    stage('Run check in staging') {
       steps {
         script {
             keptn.markEvaluationStartTime()
@@ -153,8 +153,8 @@ pipeline {
               serverUrl: "${env.APP_NAME}.${env.KEPTN_STAGE}", 
               serverPort: 80,
               checkPath: '/health',
-              vuCount: JMETER_VUCOUNT.toInteger(),
-              loopCount: JMETER_LOOPCOUNT.toInteger(),
+              vuCount: 5,
+              loopCount: 500,
               LTN: "PerfCheck_${BUILD_NUMBER}",
               funcValidation: false,
               avgRtValidation: 4000

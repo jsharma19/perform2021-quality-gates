@@ -71,8 +71,44 @@ Navigate into Jenkins by using the host domain from step 3. Username and passwor
 Go into `Jenkins > sockshop > carts` and trigger the first build of the application. After the build is done, you should visualize the micro service running using ```kubectl -n dev get deploy carts```. Since this is a backend service, you can hit the API using the url `carts.dev.xxx.xxx.xx.nip.io`
 
 ![carts](./assets/carts-pipeline.png)
+## Step 7 - Explore and configure Dynatrace
+Navigate into your Dynatrace environment into Transactions and services and visualize the new services running.
 
-## Step 7 - Release the first version to staging
+![dynatrace1](./assets/d1.png)
+
+As you see, it's difficult to locate an specific service with the current configuration so we are going to solve that by creating service tags.
+
+#### Part 1: Create a Naming Rule for Process Groups
+1. Go to **Settings**, **Process and containers**, and click on **Process group naming**.
+1. Create a new process group naming rule with **Add new rule**. 
+1. Edit that rule:
+    * Rule name: `Container.Namespace`
+    * Process group name format: `{ProcessGroup:KubernetesContainerName}.{ProcessGroup:KubernetesNamespace}`
+    * Condition: `Kubernetes namespace`> `exists`
+1. Click on **Preview** and **Create rule**.
+
+#### Part 2: Create Service Tag for App Name based on K8S Container Name
+1. Go to **Settings**, **Tags**, and click on **Automatically applied tags**.
+1. Create a new custom tag with the name `app`. **THIS TAG NAME IS CASE SENSITIVE.**
+1. Edit that tag and **Add new rule**.
+    * Rule applies to: `Services` 
+    * Optional tag value: `{ProcessGroup:KubernetesContainerName}`
+    * Condition on `Kubernetes container name` if `exists`
+1. Click on **Preview** to validate rule works.
+1. Click on **Create rule** for saving the rule and then **Save changes**.
+
+#### Part 3: Create Service Tag for Environment based on K8S Namespace
+1. Go to **Settings**, **Tags**, and click on **Automatically applied tags**.
+1. Create a new custom tag with the name `environment`. **THIS TAG NAME IS CASE SENSITIVE.**
+1. Edit that tag and **Add new rule**.
+    * Rule applies to: `Services` 
+    * Optional tag value: `{ProcessGroup:KubernetesNamespace}`
+    * Condition on `Kubernetes namespace` if `exists`
+1. Click on **Preview** to validate rule works.
+1. Click on **Create rule** for saving the rule and then **Save changes**.
+
+
+## Step 8 - Release the first version to staging
 Go into `Jenkins > sockshop > create-release-branch` and use carts as parameter to create a new branch for our release to staging. Then go into `Jenkins > sockshop > Scan Multibranch Pipeline Now` to visualize the new branch created and trigger automatically a new build.
 
 After the build has finished run `kubectl -n staging get deploy carts` to see the new artifact in the staging environment.
