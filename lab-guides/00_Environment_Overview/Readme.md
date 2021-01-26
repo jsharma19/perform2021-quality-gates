@@ -72,11 +72,11 @@ Go into `Jenkins > sockshop > carts` and trigger the first build of the applicat
 
 ![carts](./assets/carts-pipeline.png)
 ## Step 7 - Explore and configure Dynatrace
-Navigate into your Dynatrace environment into Transactions and services and visualize the new services running.
+Navigate into your Dynatrace environment and go to Transactions and services to visualize the new service running.
 
 ![dynatrace1](./assets/d1.png)
 
-As you see, it's difficult to locate an specific service with the current configuration so we are going to solve that by creating service tags.
+As you see, it's difficult to locate an specific service with the current configuration, next we are going to solve that by creating service tags.
 
 #### Part 1: Create a Naming Rule for Process Groups
 1. Go to **Settings**, **Process and containers**, and click on **Process group naming**.
@@ -114,7 +114,7 @@ Go into `Jenkins > sockshop > create-release-branch` and use carts as parameter 
 After the build has finished run `kubectl -n staging get deploy carts` to see the new artifact in the staging environment.
 
 ## Next steps
-We have now a working version of our microservice running in dev and staging, but we haven't implemented any quality check yet. In the next labs, we will configure Keptn + Dynatrace + Jenkins to implement a Quality Gate and we see how this can prevent bad builds from being promoted into staging.
+We have now a working version of our microservice running in the environments `dev` and `staging`, but we haven't implemented any quality check yet. In the next labs, we will configure Keptn + Dynatrace + Jenkins to implement a Quality Gate and we see how this can prevent bad builds from being promoted from one environment into the next one.
 
 
 :arrow_forward: [Next Step: Install Keptn](../02_Configure_Keptn_Dynatrace_Integration)
