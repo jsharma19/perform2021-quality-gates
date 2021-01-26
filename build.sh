@@ -127,7 +127,8 @@ helm install ingress-nginx ingress-nginx/ingress-nginx -n ingress-nginx --create
 sed -e "s|INGRESS_PLACEHOLDER|$ingress_domain|g"  \
      $home_folder/$clone_folder/box/carts/manifest/carts-temp.yml > $home_folder/$clone_folder/box/carts/manifest/carts.yml
 
-
+sed -e "s|INGRESS_PLACEHOLDER|$ingress_domain|g"  \
+     $home_folder/$clone_folder/box/k8s-deploy-staging/manifest/carts-temp.yml > $home_folder/$clone_folder/box/carts/manifest/carts.yml
 ##############################
 # Install Gitea + config     #
 ##############################

@@ -68,7 +68,7 @@ Navigate into Jenkins by using the host domain from step 3. Username and passwor
 
 
 ## Step 6 - Build the first version of the application
-Go into `Jenkins > sockshop > carts` and trigger the first build of the application. After the build is done, you should visualize the micro service running using ```kubectl -n dev get deploy carts```
+Go into `Jenkins > sockshop > carts` and trigger the first build of the application. After the build is done, you should visualize the micro service running using ```kubectl -n dev get deploy carts```. Since this is a backend service, you can hit the API using the url `carts.dev.xxx.xxx.xx.nip.io`
 
 ![carts](./assets/carts-pipeline.png)
 
