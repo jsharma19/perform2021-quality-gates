@@ -1,6 +1,5 @@
 @Library('dynatrace@v1.0')
 //  Link to keptn QG evaluation
-/
 @Library('keptn-library@3.3')
 import sh.keptn.Keptn
 def keptn = new sh.keptn.Keptn()
