@@ -39,12 +39,11 @@ sudo snap install docker
 sudo chmod 777 /var/run/docker.sock
 
 echo "Retrieving Dynatrace Environment details"
-# Retrieve token  management token
-# Comes from pipeline as $DYNATRACE_TOKEN
+# IMPORTANT! This values should be already in place before executing this script. 
+# export DYNATRACE_ENVIRONMENT_ID="https://test.live.dynatrace.com/"
+# export DYNATRACE_TOKEN="tokenid"
+# export DYNATRACE_PAAS_TOKEN="paas token"
 
-# Retrieve environment. Available from DTU pipeline as $DYNATRACE_ENVIRONMENT_ID
-# DT_TENANT MUST be set without leading https:// or trailing slashes
-#DT_TENANT=https://$DYNATRACE_ENVIRONMENT_ID.sprint.dynatracelabs.com
 DT_TENANT=$DYNATRACE_ENVIRONMENT_ID
 
 VM_IP=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)

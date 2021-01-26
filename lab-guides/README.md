@@ -22,6 +22,7 @@ We will use Kubernetes running on K3s to create the base infraestructure to run 
 ## Steps
 These are the steps that we will take to create a working QG pipeline in Jenkins.
 ### Environment setup
+0. [Environment overview](./00_Environment_Overview)
 1. [Install Keptn](./01_Install_Keptn)
 2. [Configure Monitoring with Keptn](../02_Configure_Keptn_Dynatrace_Integration)
 3. [Configure Jenkins library](../03_Configure_Jenkins_Library)
