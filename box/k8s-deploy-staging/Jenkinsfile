@@ -1,10 +1,10 @@
 @Library('dynatrace@v1.0')
 //  Link to keptn QG evaluation
-/* 
+/
 @Library('keptn-library@3.3')
 import sh.keptn.Keptn
 def keptn = new sh.keptn.Keptn()
-*/
+
 
 def tagMatchRules = [
   [
@@ -30,21 +30,21 @@ pipeline {
   }
 
 //  Link to keptn QG evaluation
-/* 
+
   environment {
     KEPTN_PROJECT = "acl-sockshop"
     KEPTN_SERVICE = "${APP_NAME}"
     KEPTN_STAGE = "staging"
     KEPTN_MONITORING = "dynatrace"
-    KEPTN_SHIPYARD = "keptn/e2e-shipyard.yaml"
-    KEPTN_SLI = "keptn/e2e-sli.yaml"
+    KEPTN_SHIPYARD = "keptn/shipyard.yaml"
+    KEPTN_SLI = "keptn/${APP_NAME}-sli.yaml"
     KEPTN_SLO = "keptn/${APP_NAME}-slo.yaml"
     KEPTN_DT_CONF = "keptn/dynatrace.conf.yaml"
     KEPTN_ENDPOINT = credentials('keptn-endpoint')
     KEPTN_API_TOKEN = credentials('keptn-api-token')
     KEPTN_BRIDGE = credentials('keptn-bridge')
   }
-*/
+
   stages {
     stage('Update Deployment and Service specification') {
       steps {
@@ -70,7 +70,7 @@ pipeline {
     } // end stage
 
 // Link to dynatrace events
-/* 
+
     stage('DT Deploy Event') {
       steps {
         container("curl") {
@@ -87,10 +87,10 @@ pipeline {
         }
       }
     } // end stage
-*/
+
 
 // Link to keptn QG evaluation
-/* 
+
     stage('Keptn Init') {
       steps{
         script {
@@ -121,20 +121,20 @@ pipeline {
         container('jmeter') {
           script {
             def status = executeJMeter ( 
-              scriptName: "jmeter/front-end_e2e_load.jmx",
-              resultsDir: "e2eCheck_${env.APP_NAME}_warmup_${env.VERSION}_${BUILD_NUMBER}",
-              serverUrl: "front-end.staging", 
+              scriptName: "jmeter/${env.APP_NAME}_perfcheck.jmx",
+              resultsDir: "PerfCheck_Warmup_${env.APP_NAME}_${env.VERSION}_${BUILD_NUMBER}",
+              serverUrl: "${env.APP_NAME}.${env.KEPTN_STAGE}",  
               serverPort: 80,
               checkPath: '/health',
               vuCount: 1,
-              loopCount: 1,
-              LTN: "e2eCheck_${BUILD_NUMBER}_warmup",
+              loopCount: 10,
+              LTN: "PerfCheck_Warmup_${BUILD_NUMBER}",
               funcValidation: false,
               avgRtValidation: 4000
             )
             if (status != 0) {
               currentBuild.result = 'FAILED'
-              error "Warm up round in staging failed."
+              error "Performance check failed."
             }
           }
         }
@@ -149,20 +149,20 @@ pipeline {
         container('jmeter') {
           script {
             def status = executeJMeter ( 
-              scriptName: "jmeter/front-end_e2e_load.jmx",
-              resultsDir: "e2eCheck_${env.APP_NAME}_staging_${env.VERSION}_${BUILD_NUMBER}",
-              serverUrl: "front-end.staging", 
+              scriptName: "jmeter/${env.APP_NAME}_perfcheck.jmx",
+              resultsDir: "PerfCheck_${env.APP_NAME}_${env.VERSION}_${BUILD_NUMBER}",
+              serverUrl: "${env.APP_NAME}.${env.KEPTN_STAGE}", 
               serverPort: 80,
               checkPath: '/health',
-              vuCount: 10,
-              loopCount: 5,
-              LTN: "e2eCheck_${BUILD_NUMBER}",
+              vuCount: JMETER_VUCOUNT.toInteger(),
+              loopCount: JMETER_LOOPCOUNT.toInteger(),
+              LTN: "PerfCheck_${BUILD_NUMBER}",
               funcValidation: false,
               avgRtValidation: 4000
             )
             if (status != 0) {
               currentBuild.result = 'FAILED'
-              error "Production ready e2e check in staging failed."
+              error "Performance check failed."
             }
           }
         }
@@ -181,6 +181,6 @@ pipeline {
         }
       }
     } // end stage
-*/
+
   } // end stages
 } // end pipeline

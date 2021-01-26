@@ -78,7 +78,7 @@ Go into `Jenkins > sockshop > create-release-branch` and use carts as parameter 
 After the build has finished run `kubectl -n staging get deploy carts` to see the new artifact in the staging environment.
 
 ## Next steps
-We have now a working version of our application running in dev and staging, but we haven't implemented any quality check yet. In the next labs, we will configure Keptn + Dynatrace + Jenkins to implement a Quality Gate and we see how this can prevent from bad builds from being promoted into staging or production.
+We have now a working version of our microservice running in dev and staging, but we haven't implemented any quality check yet. In the next labs, we will configure Keptn + Dynatrace + Jenkins to implement a Quality Gate and we see how this can prevent bad builds from being promoted into staging.
 
 
 :arrow_forward: [Next Step: Install Keptn](../02_Configure_Keptn_Dynatrace_Integration)

@@ -17,7 +17,7 @@ Each request needs to be correctly tagged in order to identify them later on. Th
 * **LTN** - The Load Test Name uniquely identifies a test execution (for example, 6h Load Test – June 25)
 
 ## Step 1: Open Performance Test Template
-1. Open the file `carts_perfcheck.jmx` in ```carts/jmeter```.
+1. Replace the xxx.xxx.xxx.xxx with your AWS ip and navigate to: http://gitea.xxx.xxx.xxx.xxx.nip.io/perform/carts/src/branch/master/jmeter/carts_perfcheck.jmx
 1. In this file, locate the XML tag `<stringProp name="script">`, which contains the following Java code fragment:
     ```
     import org.apache.jmeter.util.JMeterUtils;
@@ -37,7 +37,7 @@ Each request needs to be correctly tagged in order to identify them later on. Th
     ```
 
 ## Step 2: Generate the x-dynatrace-test header
-1. Add the following snippet after the comment section: **// Generate the x-dynatrace-test header**.
+1. Add the following snippet after the comment section: **// Generate the x-dynatrace-test header**. (click the pencil icon on the top right corner to enter edit mode)
     ```
     String LTN=JMeterUtils.getProperty(&quot;DT_LTN&quot;);
     if((LTN == null) || (LTN.length() == 0)) {
@@ -62,8 +62,7 @@ Each request needs to be correctly tagged in order to identify them later on. Th
     ```
 
 ## Step 4: Commit changes
-1. Save the file. 
-1. Commit/Push the changes to your GitHub Repository *carts*.
+1. Commit the changes by scrolling down and click commit changes.
 
 ---
 

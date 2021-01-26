@@ -4,7 +4,7 @@ In this lab you'll learn how to configure the Keptn library for Jenkins.
 
 ## Step 1: Review Keptn library installation
 
-Following the `everything as code` best practice, we have configure Jenkins to consume a Yaml file to grab all the configurations for our environment. One of those configurations is the keptn library for Jenkins. 
+Following the `everything as code` best practice, we have configure Jenkins to consume a Yaml file to grab all the configurations for our environment. One of those configurations is the keptn library for Jenkins that we will be using to simplify the communication between keptn api and Jenkins pipelines. 
 
 1. In order to check the library configuration in the yaml file use the following command and search for `globalLibraries` 
 
