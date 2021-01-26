@@ -74,4 +74,21 @@ spec:
     targetPort: 8080
   selector:
     app: carts
-  type: LoadBalancer
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  labels:
+    app: carts
+  name: carts
+  namespace: dev
+spec:
+  rules:
+  - host: carts.dev.INGRESS_PLACEHOLDER
+    http:
+      paths:
+      - backend:
+          serviceName: carts
+          servicePort: 80
+        path: /
+        pathType: ImplementationSpecific

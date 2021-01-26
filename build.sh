@@ -102,9 +102,9 @@ echo "Dynatrace OneAgent - Waiting for Dynatrace resources to be available..."
 kubectl wait --for=condition=ready pod --all -n dynatrace --timeout=60s
 
 # Allow Dynatrace access to create tags from labels and annotations in each NS
-kubectl -n app-one create rolebinding default-view --clusterrole=view --serviceaccount=app-one:default
-kubectl -n app-two create rolebinding default-view --clusterrole=view --serviceaccount=app-two:default
-kubectl -n app-three create rolebinding default-view --clusterrole=view --serviceaccount=app-three:default
+# kubectl -n app-one create rolebinding default-view --clusterrole=view --serviceaccount=app-one:default
+# kubectl -n app-two create rolebinding default-view --clusterrole=view --serviceaccount=app-two:default
+# kubectl -n app-three create rolebinding default-view --clusterrole=view --serviceaccount=app-three:default
 
 ##############################
 # Install keptn cli      #
@@ -122,6 +122,11 @@ helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
 
 helm install ingress-nginx ingress-nginx/ingress-nginx -n ingress-nginx --create-namespace --wait
+
+#### Adding ingress for Keptn
+sed -e "s|INGRESS_PLACEHOLDER|$ingress_domain|g"  \
+     $home_folder/$clone_folder/box/carts/manifest/carts-temp.yml > $home_folder/$clone_folder/box/carts/manifest/carts.yml
+
 
 ##############################
 # Install Gitea + config     #
@@ -216,7 +221,6 @@ kubectl create -f $home_folder/$clone_folder/box/helm/registry.yml
 echo "configure maven pvc"
 kubectl create ns jenkins
 kubectl apply -f $home_folder/$clone_folder/box/helm/k8s-maven-pvc.yml
-#kubectl apply -f /home/dtu.training/bootstrap/box/helm/k8s-maven-pvc.yml
 
 echo "Jenkins - Install"
 
@@ -243,18 +247,18 @@ helm install jenkins stable/jenkins --values $home_folder/$clone_folder/box/helm
 ##############################
 # Deploy App                 #
 ##############################
-sed -e "s|INGRESS_PLACEHOLDER|$ingress_domain|g"  \
-    $home_folder/$clone_folder/box/app-manifests/application-1.yml > $home_folder/$clone_folder/box/app-manifests/application-1-gen.yml
+# sed -e "s|INGRESS_PLACEHOLDER|$ingress_domain|g"  \
+#     $home_folder/$clone_folder/box/app-manifests/application-1.yml > $home_folder/$clone_folder/box/app-manifests/application-1-gen.yml
 
-sed -e "s|INGRESS_PLACEHOLDER|$ingress_domain|g"  \
-    $home_folder/$clone_folder/box/app-manifests/application-2.yml > $home_folder/$clone_folder/box/app-manifests/application-2-gen.yml
+# sed -e "s|INGRESS_PLACEHOLDER|$ingress_domain|g"  \
+#     $home_folder/$clone_folder/box/app-manifests/application-2.yml > $home_folder/$clone_folder/box/app-manifests/application-2-gen.yml
 
-sed -e "s|INGRESS_PLACEHOLDER|$ingress_domain|g"  \
-    $home_folder/$clone_folder/box/app-manifests/application-3.yml > $home_folder/$clone_folder/box/app-manifests/application-3-gen.yml
+# sed -e "s|INGRESS_PLACEHOLDER|$ingress_domain|g"  \
+#     $home_folder/$clone_folder/box/app-manifests/application-3.yml > $home_folder/$clone_folder/box/app-manifests/application-3-gen.yml
 
-kubectl apply -f $home_folder/$clone_folder/box/app-manifests/application-1-gen.yml
-kubectl apply -f $home_folder/$clone_folder/box/app-manifests/application-2-gen.yml
-kubectl apply -f $home_folder/$clone_folder/box/app-manifests/application-3-gen.yml
+# kubectl apply -f $home_folder/$clone_folder/box/app-manifests/application-1-gen.yml
+# kubectl apply -f $home_folder/$clone_folder/box/app-manifests/application-2-gen.yml
+# kubectl apply -f $home_folder/$clone_folder/box/app-manifests/application-3-gen.yml
 
 
 
