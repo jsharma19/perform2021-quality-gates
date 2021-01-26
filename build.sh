@@ -125,7 +125,7 @@ sed -e "s|INGRESS_PLACEHOLDER|$ingress_domain|g"  \
      $home_folder/$clone_folder/box/carts/manifest/carts-temp.yml > $home_folder/$clone_folder/box/carts/manifest/carts.yml
 
 sed -e "s|INGRESS_PLACEHOLDER|$ingress_domain|g"  \
-     $home_folder/$clone_folder/box/k8s-deploy-staging/carts-temp.yml > $home_folder/$clone_folder/box/carts/carts.yml
+     $home_folder/$clone_folder/box/k8s-deploy-staging/carts-temp.yml > $home_folder/$clone_folder/box/k8s-deploy-staging/carts.yml
 ##############################
 # Install Gitea + config     #
 ##############################

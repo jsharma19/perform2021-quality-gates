@@ -17,7 +17,7 @@ Each request needs to be correctly tagged in order to identify them later on. Th
 * **LTN** - The Load Test Name uniquely identifies a test execution (for example, 6h Load Test – June 25)
 
 ## Step 1: Open Performance Test Template
-1. Replace the xxx.xxx.xxx.xxx with your AWS ip and navigate to: http://gitea.xxx.xxx.xxx.xxx.nip.io/perform/carts/src/branch/master/jmeter/carts_perfcheck.jmx
+1. Replace the xxx.xxx.xxx.xxx with your AWS ip and navigate to: http://gitea.xxx.xxx.xxx.xxx.nip.io/perform/k8s-deploy-staging/src/branch/master/jmeter/carts_perfcheck.jmx
 1. In this file, locate the XML tag `<stringProp name="script">`, which contains the following Java code fragment:
     ```
     import org.apache.jmeter.util.JMeterUtils;
@@ -66,6 +66,6 @@ Each request needs to be correctly tagged in order to identify them later on. Th
 
 ---
 
-[Previous Step: Define Request Attributes](../04_Define_Request_Attributes) :arrow_backward: :arrow_forward: [Next Step: Define Performance Pipeline](../06_Define_Performance_Pipeline)
+[Previous Step: Define Request Attributes](../04_Define_Request_Attributes) :arrow_backward: :arrow_forward: [Next Step: Define Pipeline](../06_Define_Pipeline)
 
 :arrow_up_small: [Back to overview](../)
