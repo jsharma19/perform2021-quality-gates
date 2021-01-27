@@ -21,10 +21,8 @@ spec:
         env:
         - name: JAVA_OPTS
           value: -Xms128m -Xmx512m -XX:PermSize=128m -XX:MaxPermSize=128m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom
-        - name: DT_TAGS
-          value: "app=carts"
         - name: DT_CUSTOM_PROP
-          value: "SERVICE_TYPE=BACKEND"
+          value: "app=carts"
         resources:
           limits:
             cpu: 500m

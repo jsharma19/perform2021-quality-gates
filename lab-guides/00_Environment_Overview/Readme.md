@@ -83,20 +83,18 @@ As you see, it's difficult to locate an specific service with the current config
 1. Create a new process group naming rule with **Add new rule**. 
 1. Edit that rule:
     * Rule name: `Container.Namespace`
-    * Process group name format: `{ProcessGroup:KubernetesContainerName}.{ProcessGroup:KubernetesNamespace}`
+    * Process group name format: `{ProcessGroup:Environment:app}.{ProcessGroup:KubernetesNamespace}`
     * Condition: `Kubernetes namespace`> `exists`
 1. Click on **Preview** and **Create rule**.
-
-#### Part 2: Create Service Tag for App Name based on K8S Container Name
+#### Part 2: Create Service Tag for app based on process group info
 1. Go to **Settings**, **Tags**, and click on **Automatically applied tags**.
 1. Create a new custom tag with the name `app`. **THIS TAG NAME IS CASE SENSITIVE.**
 1. Edit that tag and **Add new rule**.
     * Rule applies to: `Services` 
-    * Optional tag value: `{ProcessGroup:KubernetesContainerName}`
-    * Condition on `Kubernetes container name` if `exists`
+    * Optional tag value: `{ProcessGroup:Environment:app}`
+    * Condition on `app(Environment)` if `exists`
 1. Click on **Preview** to validate rule works.
 1. Click on **Create rule** for saving the rule and then **Save changes**.
-
 #### Part 3: Create Service Tag for Environment based on K8S Namespace
 1. Go to **Settings**, **Tags**, and click on **Automatically applied tags**.
 1. Create a new custom tag with the name `environment`. **THIS TAG NAME IS CASE SENSITIVE.**
