@@ -1,9 +1,10 @@
 @Library('dynatrace@v1.0')
 //  Link to keptn QG evaluation
+/*
 @Library('keptn-library@3.3')
 import sh.keptn.Keptn
 def keptn = new sh.keptn.Keptn()
-
+*/
 
 def tagMatchRules = [
   [
@@ -29,7 +30,7 @@ pipeline {
   }
 
 //  Link to keptn QG evaluation
-
+/*
   environment {
     KEPTN_PROJECT = "acl-sockshop"
     KEPTN_SERVICE = "${APP_NAME}"
@@ -43,7 +44,7 @@ pipeline {
     KEPTN_API_TOKEN = credentials('keptn-api-token')
     KEPTN_BRIDGE = credentials('keptn-bridge')
   }
-
+*/
   stages {
     stage('Update Deployment and Service specification') {
       steps {
@@ -89,7 +90,7 @@ pipeline {
 
 
 // Link to keptn QG evaluation
-
+/*
     stage('Keptn Init') {
       steps{
         script {
@@ -180,6 +181,6 @@ pipeline {
         }
       }
     } // end stage
-
+*/
   } // end stages
 } // end pipeline
