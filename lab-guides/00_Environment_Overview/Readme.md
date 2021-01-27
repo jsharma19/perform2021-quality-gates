@@ -17,22 +17,19 @@ You should see something like this:
 
 ```(bash)
 NAME              STATUS   AGE
-default           Active   55m
-kube-system       Active   55m
-kube-public       Active   55m
-kube-node-lease   Active   55m
-dynatrace         Active   55m
-ingress-nginx     Active   55m
-gitea             Active   54m
-dev               Active   52m
-staging           Active   52m
-production        Active   52m
-registry          Active   52m
-jenkins           Active   52m
-app-one           Active   51m
-app-two           Active   51m
-app-three         Active   51m
-dashboard         Active   51m
+default           Active   10m
+kube-system       Active   10m
+kube-public       Active   10m
+kube-node-lease   Active   10m
+dynatrace         Active   10m
+ingress-nginx     Active   9m31s
+gitea             Active   9m5s
+dev               Active   7m2s
+staging           Active   7m2s
+production        Active   7m2s
+registry          Active   7m1s
+jenkins           Active   7m
+dashboard         Active   5m8s
 ```
 We will be working with some of these namespaces to deploy our application across the different stages from dev > staging > production
 
@@ -68,7 +65,7 @@ Navigate into Jenkins by using the host domain from step 3. Username and passwor
 
 
 ## Step 6 - Build the first version of the application
-Go into `Jenkins > sockshop > carts` and trigger the first build of the application. After the build is done, you should visualize the micro service running using ```kubectl -n dev get deploy carts```. Since this is a backend service, you can hit the API using the url `carts.dev.xxx.xxx.xx.nip.io`
+Go into `Jenkins > sockshop > carts` and trigger the first build of the application. After the build is done, you can visualize the microservice running in dev using ```kubectl -n dev get deploy carts```. Since this is a backend service with an API interface, you can hit the API using the url `carts.dev.xxx.xxx.xx.nip.io`
 
 ![carts](./assets/carts-pipeline.png)
 ## Step 7 - Explore and configure Dynatrace
@@ -76,7 +73,7 @@ Navigate into your Dynatrace environment and go to Transactions and services to 
 
 ![dynatrace1](./assets/d1.png)
 
-As you see, it's difficult to locate an specific service with the current configuration, next we are going to solve that by creating service tags.
+As you see, it's difficult to locate an specific service with the current configuration, next we are going to solve that by creating service tags. This would allow us to identify our services in later labs.
 
 #### Part 1: Create a Naming Rule for Process Groups
 1. Go to **Settings**, **Process and containers**, and click on **Process group naming**.
@@ -107,12 +104,13 @@ As you see, it's difficult to locate an specific service with the current config
 
 
 ## Step 8 - Release the first version to staging
-Go into `Jenkins > sockshop > create-release-branch` and use carts as parameter to create a new branch for our release to staging. Then go into `Jenkins > sockshop > Scan Multibranch Pipeline Now` to visualize the new branch created and trigger automatically a new build.
+Go into `Jenkins > sockshop > create-release-branch` and use `carts` as parameter to create a new branch for our release to staging. Then go into `Jenkins > sockshop > Scan Multibranch Pipeline Now` to visualize the new branch created and trigger automatically a new build.
 
-After the build has finished run `kubectl -n staging get deploy carts` to see the new artifact in the staging environment.
+After the build has finished run `kubectl -n staging get deploy carts` to see the microservice running in the staging environment.
 
 ## Next steps
-We have now a working version of our microservice running in the environments `dev` and `staging`, but we haven't implemented any quality check yet. In the next labs, we will configure Keptn + Dynatrace + Jenkins to implement a Quality Gate and we see how this can prevent bad builds from being promoted from one environment into the next one.
+We have now a working version of our microservice running in the environments `dev` and `staging`, but we haven't implemented any quality checks yet. In the next labs, we will configure `Keptn + Dynatrace + Jenkins` to implement a Quality Gate and we see how this can prevent bad builds from being promoted from one environment into the next one.
+
 
 
 :arrow_forward: [Next Step: Install Keptn](../02_Configure_Keptn_Dynatrace_Integration)

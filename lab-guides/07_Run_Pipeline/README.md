@@ -11,9 +11,9 @@ In this lab you'll measure the performance for the carts service 3 times. The fi
 
 ## Step 2: Introduce a small slowdown in the Carts Service
 
-1. In the directory of `carts\`, open the file: `carts\src\main\resources\application.properties`.
+1. In the repository in Gitea for  `carts`, open the file: `carts\src\main\resources\application.properties`.
 1. Change the value of `delayInMillis` from `0` to `500`.
-1. Commit/Push the changes to your GitHub Repository *carts*.
+1. Commit the changes.
 
 ## Step 3: Build this new Version
 
@@ -31,9 +31,9 @@ In this lab you'll measure the performance for the carts service 3 times. The fi
 
 ## Step 5: Introduce a larger slowdown in the Carts Service
 
-1. In the directory of `carts\`, open the file: `carts\src\main\resources\application.properties`.
+1.  In the repository in Gitea for  `carts`, open the file: `carts\src\main\resources\application.properties`.
 1. Change the value of `delayInMillis` from `500` to `800`.
-1. Commit/Push the changes to your GitHub Repository *carts*.
+1. Commit the changes.
 
 ## Step 6: Build this new Version
 
@@ -49,8 +49,7 @@ In this lab you'll measure the performance for the carts service 3 times. The fi
 1. Click on **Build with parameters** to trigger the performance pipeline (leave the default values).
 1. Wait until the Jenkins build **fails**
 
-You should be able to see something similar to this image:
-![pipeline](./assets/pipelineResults.png)
+
 
 ---
 

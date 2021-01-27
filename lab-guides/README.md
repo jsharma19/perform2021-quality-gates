@@ -1,9 +1,9 @@
 # Level Up your CD with Keptn Quality gates
 SRE practices are taking over the enterprise application release landscape. Continuous automated release validation by evaluating Service Level Objectives is a key requirement for organizations to release software faster and more frequently without inhibiting quality. During this Hands-On Trainig, we will go over Keptn Quality Gates and how it can be used in conjunction with a CI/CD pipeline to detect regressions faster in order to achieve true shift-left.
 
-#### The application
+## The application
 We will be using a microservice called `carts` which is part of our `sockshop` application that emulates a marketplace for buying socks. The `carts` microservice is build using Java with a mongo-db database, and is responsible for the shopping cart process.
-
+![gitea](./00_Environment_Overview/assets/arch.png)
 ## Technology overview
 In order to build this application we will be using the following technologies.
 #### Jenkins
