@@ -9,7 +9,7 @@ git_repo="perform"
 git_user="dynatrace"
 git_pwd="dynatrace"
 git_email="perform2021@dt-perform.com"
-shell_user="dtu.training"
+shell_user=$USER
 
 app1Repo="carts"
 releaseBranchPipeline="jenkins-release-branch"
@@ -174,11 +174,11 @@ cd $home_folder
 
 git clone http://$git_user:$gitea_pat@gitea.$ingress_domain/$git_org/$app1Repo
 cp -r $home_folder/$clone_folder/box/$app1Repo/. $home_folder/$app1Repo
-#ie cp -r /home/dtu.training/bootstrap/box/carts/. /home/dtu.training/carts
+
 cd $home_folder/$app1Repo && git add . && git commit -m "Initial commit, enjoy"
-# cd /home/dtu.training/carts && git add . && git commit -m "Initial commit, enjoy"
+
 cd $home_folder/$app1Repo && git push http://$git_user:$gitea_pat@gitea.$ingress_domain/$git_org/$app1Repo
-# cd /home/dtu.training/carts && git push http://$git_user:$gitea_pat@gitea.$ingress_domain/$git_org/$app1Repo
+
 echo "Gitea - Create repo $stagingPipelineRepo..."
 curl -k -d '{"name":"'$stagingPipelineRepo'", "private":false, "auto-init":true}' -H "Content-Type: application/json" -X POST "http://gitea.$ingress_domain/api/v1/org/$git_org/repos?access_token=$gitea_pat"
 cd $home_folder
