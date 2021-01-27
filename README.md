@@ -2,7 +2,7 @@
 
 ## Provision infrastructure
 
-1. Copy build.sh script to the aws machine and then run 
+1. Copy pre-build.sh script to the aws machine then add the env variables
 ```bash
 export DYNATRACE_ENVIRONMENT_ID="https://test.live.dynatrace.com/"
 export DYNATRACE_TOKEN="tokenid"
