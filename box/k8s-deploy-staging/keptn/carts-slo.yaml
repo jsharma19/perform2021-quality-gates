@@ -14,14 +14,6 @@ objectives:
     warning:          # if the response time is above 400ms and less or equal to 700ms, the result should be a warning
       - criteria:
           - "<=700"  # if the response time is above 700ms, the result should be a failure
-  - sli: "response_time_p95_front-end"
-    pass:
-      - criteria:
-          - "<=+10%"
-          - "<1400"
-    warning:
-      - criteria:
-          - "<=1500"
   - sli: "error_rate"
     pass:
       - criteria:
@@ -29,17 +21,7 @@ objectives:
           - "<0.5"
     warning:
       - criteria:
-          - "<5"
-  - sli: "rt_addToCart" # looking at a particular transaction
-    key_sli: true       # business critical transaction
-    pass:
-      - criteria:
-          - "<=+10%"    # Degradation-driven
-          - "<300000"   # NFR-driven
-    warning:
-      - criteria:
-          - "<=+50%"
-          - "<=500000"
+          - "<5"          
 total_score:
   pass: "90%"
   warning: "75%"
