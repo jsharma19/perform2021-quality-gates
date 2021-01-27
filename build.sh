@@ -57,9 +57,9 @@ cd
 ##############################
 # Download Monaco + add PATH #
 ##############################
-wget https://github.com/dynatrace-oss/dynatrace-monitoring-as-code/releases/download/v1.0.1/monaco-linux-amd64 -O $home_folder/monaco
-chmod +x $home_folder/monaco
-cp $home_folder/monaco /usr/local/bin
+# wget https://github.com/dynatrace-oss/dynatrace-monitoring-as-code/releases/download/v1.0.1/monaco-linux-amd64 -O $home_folder/monaco
+# chmod +x $home_folder/monaco
+# cp $home_folder/monaco /usr/local/bin
 
 
 
