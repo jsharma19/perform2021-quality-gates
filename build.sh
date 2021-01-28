@@ -53,7 +53,7 @@ ingress_domain="$VM_IP.$domain"
 echo "Ingress domain: $ingress_domain"
 
 cd 
-chown -R dtu_training:dtu_training /home/dtu_training/
+#chown -R dtu_training:dtu_training /home/dtu_training/
 ##############################
 # Download Monaco + add PATH #
 ##############################
