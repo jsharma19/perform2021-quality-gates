@@ -9,7 +9,7 @@ git_repo="perform"
 git_user="dynatrace"
 git_pwd="dynatrace"
 git_email="perform2021@dt-perform.com"
-shell_user=$USER
+shell_user="dtu_training"
 
 app1Repo="carts"
 releaseBranchPipeline="jenkins-release-branch"
