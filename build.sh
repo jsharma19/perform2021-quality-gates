@@ -93,6 +93,7 @@ helm repo add dynatrace https://raw.githubusercontent.com/Dynatrace/helm-charts/
 sed \
     -e "s|DYNATRACE_ENVIRONMENT_PLACEHOLDER|$DT_TENANT|"  \
     -e "s|DYNATRACE_TOKEN_PLACEHOLDER|$DYNATRACE_TOKEN|g"  \
+    -e "s|DYNATRACE_PAAS_TOKEN_PLACEHOLDER|$DYNATRACE_PAAS_TOKEN|g"  \
     $home_folder/$clone_folder/box/helm/oneagent-values.yml > $home_folder/$clone_folder/box/helm/oneagent-values-gen.yml
 
 helm install dynatrace-oneagent-operator dynatrace/dynatrace-oneagent-operator -n dynatrace --values $home_folder/$clone_folder/box/helm/oneagent-values-gen.yml --wait
