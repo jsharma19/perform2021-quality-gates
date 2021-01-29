@@ -239,7 +239,7 @@ sed \
 
 kubectl create clusterrolebinding jenkins --clusterrole cluster-admin --serviceaccount=jenkins:jenkins
 kubectl create clusterrolebinding jenkinsd --clusterrole cluster-admin --serviceaccount=jenkins:default
-
+helm repo add stable https://charts.helm.sh/stable
 helm install jenkins stable/jenkins --values $home_folder/$clone_folder/box/helm/jenkins-values-gen.yml --version $jenkins_chart_version --namespace jenkins --wait 
 
 
