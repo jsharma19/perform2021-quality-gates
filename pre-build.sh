@@ -1,4 +1,4 @@
-source_repo="https://github.com/diegorqc/perform2021-quality-gates"
+source_repo="https://github.com/jsharma19/perform2021-quality-gates"
 clone_folder="bootstrap"
 home_folder="/home/dtu_training"
 
