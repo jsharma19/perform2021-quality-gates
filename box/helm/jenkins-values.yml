@@ -73,7 +73,7 @@ master:
     - pipeline-build-step:2.13
     - docker-plugin:1.2.1
     - blueocean:1.24.3
-    - configuration-as-code:1.46
+    - configuration-as-code:1.47
     - http_request:1.8.27
     - pipeline-utility-steps:2.6.1
   JCasC:
